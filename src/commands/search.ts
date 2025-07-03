@@ -9,33 +9,32 @@ import { isFullDatabase, isFullPage } from '@notionhq/client'
 import { getDbTitle, getPageTitle, outputRawJson } from '../helper'
 
 export default class Search extends Command {
-  static description = 'Search by title'
+  static description = 'Search across all pages and databases in your workspace by title'
 
   static examples = [
     {
-      description: 'Search by title',
-      command: `$ notion-cli search -q 'My Page'`,
+      description: 'Search for pages containing "meeting"',
+      command: `$ notion-cli search -q "meeting"`,
     },
     {
-      description: 'Search by title and output csv',
-      command: `$ notion-cli search -q 'My Page' --csv`,
+      description: 'Search only databases',
+      command: `$ notion-cli search -q "project" -p database`,
     },
     {
-      description: 'Search by title and output raw json',
-      command: `$ notion-cli search -q 'My Page' -r`,
+      description: 'Search and export as CSV',
+      command: `$ notion-cli search -q "Q4 planning" --csv > results.csv`,
     },
     {
-      description: 'Search by title and output table with specific columns',
-      command: `$ notion-cli search -q 'My Page' --columns=title,object`,
+      description: 'Search with more results',
+      command: `$ notion-cli search -q "notes" -s 20`,
     },
     {
-      description: 'Search by title and output table with specific columns and sort direction',
-      command: `$ notion-cli search -q 'My Page' --columns=title,object -d asc`,
+      description: 'Search sorted by oldest first',
+      command: `$ notion-cli search -q "archive" -d asc`,
     },
     {
-      description:
-        'Search by title and output table with specific columns and sort direction and page size',
-      command: `$ notion-cli search -q 'My Page' -columns=title,object -d asc -s 10`,
+      description: 'Get raw API response for processing',
+      command: `$ notion-cli search -q "todo" --raw | jq '.results[].properties'`,
     },
     {
       description:

@@ -7,22 +7,26 @@ import {
 import { getBlockPlainText, outputRawJson } from '../../helper'
 
 export default class BlockAppend extends Command {
-  static description = 'Append block children'
+  static description = 'Append new child blocks to a parent block (requires JSON format for block content)'
 
   static aliases: string[] = ['block:a']
 
   static examples = [
     {
-      description: 'Append block children',
-      command: `$ notion-cli block append BLOCK_ID -c '[{"object":"block","type":"paragraph","paragraph":{"text":[{"type":"text","text":{"content":"Hello world!"}}]}}]'`,
+      description: 'Append a simple paragraph block',
+      command: `$ notion-cli block append abc123 '[{"type":"paragraph","paragraph":{"rich_text":[{"type":"text","text":{"content":"Hello world!"}}]}}]'`,
     },
     {
-      description: 'Append block children after a block',
-      command: `$ notion-cli block append BLOCK_ID -c '[{"object":"block","type":"paragraph","paragraph":{"text":[{"type":"text","text":{"content":"Hello world!"}}]}}]' -a BLOCK_ID`,
+      description: 'Append multiple blocks (heading + paragraph)',
+      command: `$ notion-cli block append abc123 '[{"type":"heading_2","heading_2":{"rich_text":[{"type":"text","text":{"content":"Section Title"}}]}},{"type":"paragraph","paragraph":{"rich_text":[{"type":"text","text":{"content":"Section content"}}]}}]'`,
     },
     {
-      description: 'Append block children and output raw json',
-      command: `$ notion-cli block append BLOCK_ID -c '[{"object":"block","type":"paragraph","paragraph":{"text":[{"type":"text","text":{"content":"Hello world!"}}]}}]' -r`,
+      description: 'Append blocks after a specific child block',
+      command: `$ notion-cli block append abc123 '[{"type":"paragraph","paragraph":{"rich_text":[{"type":"text","text":{"content":"Inserted text"}}]}}]' xyz789`,
+    },
+    {
+      description: 'Append from a JSON file',
+      command: `$ notion-cli block append abc123 "$(cat blocks.json)"`,
     },
   ]
 

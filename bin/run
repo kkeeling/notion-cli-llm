@@ -1,5 +1,20 @@
 #!/usr/bin/env node
 
 const oclif = require('@oclif/core')
+const path = require('path')
+const fs = require('fs')
+
+// Check for --help-verbose flag early and handle it
+if (process.argv.includes('--help-verbose')) {
+  const helpPath = path.join(__dirname, '..', 'ENHANCED_HELP.md')
+  
+  try {
+    const helpContent = fs.readFileSync(helpPath, 'utf8')
+    console.log(helpContent)
+    process.exit(0)
+  } catch (error) {
+    console.error('Enhanced help file not found.')
+  }
+}
 
 oclif.run().then(require('@oclif/core/flush')).catch(require('@oclif/core/handle'))

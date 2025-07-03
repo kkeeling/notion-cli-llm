@@ -54,10 +54,23 @@
     "plugins": [
       "@oclif/plugin-help"
     ],
+    "helpClass": "./dist/help",
     "topicSeparator": " ",
     "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
+      "block": {
+        "description": "Manage Notion blocks (create, read, update, delete)"
+      },
+      "db": {
+        "description": "Manage databases with powerful querying and filtering"
+      },
+      "page": {
+        "description": "Create and manage pages, including markdown import/export"
+      },
+      "user": {
+        "description": "List and retrieve user information"
+      },
+      "search": {
+        "description": "Search across your Notion workspace"
       }
     }
   },

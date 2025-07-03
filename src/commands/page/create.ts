@@ -11,35 +11,30 @@ import {
 import { getPageTitle, outputRawJson } from '../../helper'
 
 export default class PageCreate extends Command {
-  static description = 'Create a page'
+  static description = 'Create a new page in a parent page or database. Supports importing from markdown files.'
 
   static aliases: string[] = ['page:c']
 
   static examples = [
     {
-      description: 'Create a page via interactive mode',
-      command: `$ notion-cli page create`,
-    },
-    {
-      description: 'Create a page with a specific parent_page_id',
+      description: 'Create empty page in another page',
       command: `$ notion-cli page create -p PARENT_PAGE_ID`,
     },
     {
-      description: 'Create a page with a specific parent_db_id',
-      command: `$ notion-cli page create -d PARENT_DB_ID`,
+      description: 'Create page in a database',
+      command: `$ notion-cli page create -d DATABASE_ID`,
     },
     {
-      description: 'Create a page with a specific source markdown file and parent_page_id',
-      command: `$ notion-cli page create -f ./path/to/source.md -p PARENT_PAGE_ID`,
+      description: 'Import markdown file as a new page',
+      command: `$ notion-cli page create -f ./meeting-notes.md -p PARENT_PAGE_ID`,
     },
     {
-      description: 'Create a page with a specific source markdown file and parent_db_id',
-      command: `$ notion-cli page create -f ./path/to/source.md -d PARENT_DB_ID`,
+      description: 'Import markdown into database (filename becomes title)',
+      command: `$ notion-cli page create -f ./project-plan.md -d DATABASE_ID`,
     },
     {
-      description:
-        'Create a page with a specific source markdown file and output raw json with parent_page_id',
-      command: `$ notion-cli page create -f ./path/to/source.md -p PARENT_PAGE_ID -r`,
+      description: 'Create page and get full response',
+      command: `$ notion-cli page create -f ./doc.md -p PARENT_PAGE_ID --raw`,
     },
   ]
 

@@ -25,29 +25,33 @@ import { client } from '../../notion'
 const prompts = require('prompts')
 
 export default class DbQuery extends Command {
-  static description = 'Query a database'
+  static description = 'Query a database with powerful filtering, sorting, and pagination. Supports interactive filter building.'
 
   static aliases: string[] = ['db:q']
 
   static examples = [
     {
-      description: 'Query a db via interactive mode',
+      description: 'Interactive mode - build and save filters',
       command: `$ notion-cli db query`,
     },
     {
-      description: 'Query a db with a specific database_id',
+      description: 'Query all pages from a database',
       command: `$ notion-cli db query DATABASE_ID`,
     },
     {
-      description: 'Query a db with a specific database_id and raw filter string',
-      command: `$ notion-cli db query -a '{"and": ...}' DATABASE_ID`,
+      description: 'Query with inline filter (active tasks)',
+      command: `$ notion-cli db query DATABASE_ID -a '{"property":"Status","select":{"equals":"In Progress"}}'`,
     },
     {
-      description: 'Query a db with a specific database_id and filter file',
-      command: `$ notion-cli db query -f ./path/to/filter.json DATABASE_ID`,
+      description: 'Query with saved filter file',
+      command: `$ notion-cli db query DATABASE_ID -f ./filters/active-tasks.json`,
     },
     {
-      description: 'Query a db with a specific database_id and output CSV',
+      description: 'Get all results sorted by priority',
+      command: `$ notion-cli db query DATABASE_ID --pageAll -s Priority -d desc`,
+    },
+    {
+      description: 'Export query results as CSV',
       command: `$ notion-cli db query --csv DATABASE_ID`,
     },
     {
